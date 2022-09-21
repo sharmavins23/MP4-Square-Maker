@@ -4,3 +4,4 @@
 # These files are garbage from editors or compilers
 __pycache__
 .vscode
+proc

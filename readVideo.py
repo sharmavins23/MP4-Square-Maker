@@ -14,44 +14,22 @@ def getNumFrames(filepath):
     return length
 
 
+# Get a video's framerate
+def getFramerate(filepath):
+    capture = cv2.VideoCapture(filepath)
+    framerate = capture.get(cv2.CAP_PROP_FPS)
+    return framerate
+
+
 # ===== Video processing =======================================================
 
 
-# Compute the average pixel value of a particular frame
-def getPixelFromFrame(frame):
-    b, g, r = cv2.split(frame)
-
-    # Compute the average red, green, and blue values
-    avgR = sum(r) / len(r)
-    avgG = sum(g) / len(g)
-    avgB = sum(b) / len(b)
-
-    # Return the average pixel value
-    return (avgR, avgG, avgB)
-
-
-# Iterate through a video and splice out frames
-def readVideo(filepath):
+# Get a particular frame from a video and save it to a file
+def getFrame(filepath, seconds):
     capture = cv2.VideoCapture(filepath)
 
-    rgbTuples = []
-
-    while True:
-        # Capture frame by frame
-        ret, frame = capture.read()
-        # Check if the frame was read correctly
-        if not ret:
-            print("Error reading frame (stream end?) Exiting...")
-            break
-
-        # HERE is where you handle frames as images simply
-
-        # Compute the average pixel value of the frame
-        rgbTuple = getPixelFromFrame(frame)
-        rgbTuples.append(rgbTuple)
-
-    # Release the capture
-    capture.release()
-    cv2.destroyAllWindows()
-
-    return rgbTuples
+    capture.set(cv2.CAP_PROP_POS_MSEC, seconds * 1000)
+    hasFrames, image = capture.read()
+    if hasFrames:
+        outputFilename = f"proc/frame.png"
+        cv2.imwrite(outputFilename, image)
