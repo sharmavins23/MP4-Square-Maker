@@ -1,5 +1,4 @@
 import cv2  # OpenCV for frame count
-from alive_progress import alive_bar
 
 
 # ===== Video metadata processing ==============================================
@@ -50,9 +49,6 @@ def readVideo(filepath):
         # Compute the average pixel value of the frame
         rgbTuple = getPixelFromFrame(frame)
         rgbTuples.append(rgbTuple)
-
-        # Update the progress bar that's neat and cool
-        yield
 
     # Release the capture
     capture.release()

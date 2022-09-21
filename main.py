@@ -1,6 +1,5 @@
 from readVideo import getNumFrames, readVideo
 from createImage import getDimensions, constructImage
-from alive_progress import alive_bar
 
 
 # Driver code
@@ -19,11 +18,7 @@ if __name__ == "__main__":
 
     # Read the video for RGB tuples
     print(f"Reading video...")
-    with alive_bar(frameCount) as bar:
-        rgbTuples = readVideo(filepathIn)
-        bar()
-
-    rgbTuples = list(rgbTuples)
+    rgbTuples = readVideo(filepathIn)
 
     # Construct the image
     constructImage(rgbTuples, dims, filepathOut)
