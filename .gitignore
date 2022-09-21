@@ -1,0 +1,6 @@
+# These files are way too large
+/in
+
+# These files are garbage from editors or compilers
+__pycache__
+.vscode
