@@ -1,4 +1,5 @@
 import cv2  # OpenCV for frame count
+from alive_progress import alive_bar
 
 
 # ===== Video metadata processing ==============================================
@@ -32,7 +33,7 @@ def getPixelFromFrame(frame):
 
 # Iterate through a video and splice out frames
 def readVideo(filepath):
-    capture = cv2.videoCapture(filepath)
+    capture = cv2.VideoCapture(filepath)
 
     rgbTuples = []
 
@@ -50,8 +51,11 @@ def readVideo(filepath):
         rgbTuple = getPixelFromFrame(frame)
         rgbTuples.append(rgbTuple)
 
+        # Update the progress bar that's neat and cool
+        yield
+
     # Release the capture
     capture.release()
     cv2.destroyAllWindows()
 
-    return rgbTuples()
+    return rgbTuples
